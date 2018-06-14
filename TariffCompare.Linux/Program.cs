@@ -39,7 +39,7 @@ namespace TariffCompare.Linux
                     else
                     {
                         float usage;
-                        if (!bool.TryParse(Config.Get("targetMonthlySpend_includesStandingCharge"), out bool includesStandingCharge))
+                        if (bool.TryParse(Config.Get("targetMonthlySpend_includesStandingCharge"), out bool includesStandingCharge))
                             usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend, includesStandingCharge);
                         else // as it stands targetMonthlySpend_includesStandingCharge is not specified in the config, so the default mode will be used
                             usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend);
