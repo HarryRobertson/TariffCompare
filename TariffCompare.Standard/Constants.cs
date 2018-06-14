@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace TariffCompare.Standard
+﻿namespace TariffCompare.Standard
 {
     public static class Constants
     {

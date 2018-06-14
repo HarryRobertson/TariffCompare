@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TariffCompare.Standard\TariffCompare.Standard.csproj" />
+    <ProjectReference Include="..\TariffCompare.Standard\TariffCompare.Standard.csproj">
+      <Private></Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

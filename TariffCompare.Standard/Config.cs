@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+using static System.Configuration.ConfigurationManager;
 
 [assembly: InternalsVisibleTo("TariffCompare.Linux")]
 namespace TariffCompare.Standard
@@ -8,7 +8,7 @@ namespace TariffCompare.Standard
     {
         public static string Get(string key)  
         {
-            return ConfigurationManager.AppSettings.Get(key);
+            return AppSettings.Get(key);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Text;
 using TariffCompare.Standard;
 
-namespace TariffCompare
+namespace TariffCompare.Linux
 {
     class Program
     {
@@ -12,7 +12,9 @@ namespace TariffCompare
             Datasource ds = new Datasource(path);
 
             StringBuilder sb = new StringBuilder();
-            switch (args[0].ToLower())
+            if (args.Length == 0)
+                sb = GetHelp();
+            else switch (args[0].ToLower())
             {
                 case "cost":
                     if (args.Length != 3 // guard against incorrect arguments
@@ -36,8 +38,11 @@ namespace TariffCompare
                         sb = GetHelp(false, true);
                     else
                     {
-                        bool.TryParse(Config.Get("targetMonthlySpend_includesStandingCharge"), out bool includesStandingCharge);
-                        float usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend, includesStandingCharge);
+                        float usage;
+                        if (!bool.TryParse(Config.Get("targetMonthlySpend_includesStandingCharge"), out bool includesStandingCharge))
+                            usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend, includesStandingCharge);
+                        else // as it stands targetMonthlySpend_includesStandingCharge is not specified in the config, so the default mode will be used
+                            usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend);
                         sb.AppendLine($"{usage:0.00}");
                     }
                     break;
