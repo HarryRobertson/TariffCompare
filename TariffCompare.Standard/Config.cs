@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using static System.Configuration.ConfigurationManager;
 
-[assembly: InternalsVisibleTo("TariffCompare.Linux")]
+[assembly: InternalsVisibleTo("TariffCompare.Console")]
 namespace TariffCompare.Standard
 {
     internal static class Config

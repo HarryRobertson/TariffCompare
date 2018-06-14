@@ -2,7 +2,7 @@
 using System.Text;
 using TariffCompare.Standard;
 
-namespace TariffCompare.Linux
+namespace TariffCompare
 {
     class Program
     {

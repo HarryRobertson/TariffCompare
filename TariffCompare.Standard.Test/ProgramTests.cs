@@ -1,8 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using TariffCompare.Standard;
 
-namespace TariffCompare.Test
+namespace TariffCompare.Standard.Test
 {
     [TestFixture]
     public class ProgramTests

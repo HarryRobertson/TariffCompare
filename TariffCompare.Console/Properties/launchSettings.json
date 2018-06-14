@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "TariffCompare.Linux": {
+    "TariffCompare": {
       "commandName": "Project",
       "commandLineArgs": "cost 2000 2300"
     }

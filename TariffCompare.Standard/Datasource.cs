@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
 
-[assembly: InternalsVisibleTo("TariffCompare.Linux")]
+[assembly: InternalsVisibleTo("TariffCompare.Console")]
 namespace TariffCompare.Standard
 {
     internal class Datasource : AbstractDatasource
