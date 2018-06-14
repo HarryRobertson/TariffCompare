@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("TariffCompare.Test")]
+[assembly: InternalsVisibleTo("TariffCompare.Standard.Test")]
 namespace TariffCompare.Standard
 {
     internal static class Helpers
