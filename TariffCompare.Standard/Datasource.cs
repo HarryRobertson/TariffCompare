@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
 
-[assembly: InternalsVisibleTo("TariffCompare.Console")]
 namespace TariffCompare.Standard
 {
     internal class Datasource : AbstractDatasource
@@ -17,10 +15,9 @@ namespace TariffCompare.Standard
             string file = File.ReadAllLines(fullPath).Aggregate("", (s, a) => s + a);
             Tariffs = ParseJson(file);
         }
-
     }
 
-    internal abstract class AbstractDatasource : IDatasource
+    internal abstract class AbstractDatasource : IDatasource // will need this functionality for testing to easiest to just abstract it out
     {
         private const string TARIFF = "tariff";
         private const string RATES = "rates";
@@ -30,7 +27,7 @@ namespace TariffCompare.Standard
 
         public abstract (string tariff, (float power, float gas) rates, float standingCharge)[] Tariffs { get; }
 
-        protected (string tariff, (float power, float gas) rates, float standingCharge)[] ParseJson(string json)
+        protected (string tariff, (float power, float gas) rates, float standingCharge)[] ParseJson(string json) 
         {
             var temp = new List<(string, (float, float), float)>();
             JArray jArray = JArray.Parse(json);

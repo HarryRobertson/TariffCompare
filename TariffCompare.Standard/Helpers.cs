@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("TariffCompare.Standard.Test")]
 namespace TariffCompare.Standard
 {
     internal static class Helpers
     {
         public static float AddVAT(float costExcludingVAT)
         {
-            return costExcludingVAT * Constants.VAT;
+            return costExcludingVAT * CONSTANTS.VAT;
         }
 
         public static float DeductVAT(float costIncludingVAT)
         {
-            return costIncludingVAT / Constants.VAT;
+            return costIncludingVAT / CONSTANTS.VAT;
         }
 
         public static float AddStandingCharge(float standingCharge, float costExludingStandingCharge)
         {
             float @return = costExludingStandingCharge;
-            if (costExludingStandingCharge - 0 > Constants.FLOAT_DELTA)
+            if (costExludingStandingCharge - 0 > CONSTANTS.FLOAT_DELTA)
             {   // only add the charge if the utility is actually being used
                 @return += standingCharge;
             }
@@ -29,7 +27,7 @@ namespace TariffCompare.Standard
         public static float DeductStandingCharge(float standingCharge, float costIncludingStandingCharge)
         {
             float @return = costIncludingStandingCharge - standingCharge;
-            if (@return < 0f) // would only happen if the tool was being used wrong, but simple to check
+            if (@return < 0f) // would only happen if the tool was being used wrong, but simple to check so might as well
                 @return = 0f;
             return @return;
         }
@@ -47,8 +45,8 @@ namespace TariffCompare.Standard
         public static bool IsTariffApplicable((float power, float gas) rates, float powerUsage, float gasUsage)
         {
             bool @return = true;
-            if (powerUsage > 0 && rates.power - 0 <= Constants.FLOAT_DELTA) @return = false; // if power is used but tariff does not have a rate
-            if (gasUsage > 0 && rates.gas - 0 <= Constants.FLOAT_DELTA) @return = false;    // if gas is used but tariff does not have a rate
+            if (powerUsage > 0 && rates.power - 0 <= CONSTANTS.FLOAT_DELTA) @return = false; // if power is used but tariff does not have a rate
+            if (gasUsage > 0 && rates.gas - 0 <= CONSTANTS.FLOAT_DELTA) @return = false;    // if gas is used but tariff does not have a rate
             return @return;
         }
 
@@ -57,19 +55,19 @@ namespace TariffCompare.Standard
             return monthlyCost * 12;
         }
 
-        public static float SelectCorrectRate(Constants.FuelType fuelType, (float power, float gas) rates)
+        public static float SelectCorrectRate(CONSTANTS.FUELTYPE fueltype, (float power, float gas) rates)
         {
             float @return;
-            switch (fuelType)
+            switch (fueltype)
             {
-                case Constants.FuelType.Power:
+                case CONSTANTS.FUELTYPE.POWER:
                     @return = rates.power;
                     break;
-                case Constants.FuelType.Gas:
+                case CONSTANTS.FUELTYPE.GAS:
                     @return = rates.gas;
                     break;
                 default:
-                    throw new ArgumentException("fuelType should be one of either 'power' or 'gas'.");
+                    throw new ArgumentException("fueltype should be one of either 'CONSTANTS.FUELTYPE.POWER' or 'CONSTANTS.FUELTYPE.GAS'.");
             }
             return @return;
         }

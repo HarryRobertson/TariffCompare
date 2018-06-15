@@ -1,7 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using static System.Configuration.ConfigurationManager;
+﻿using static System.Configuration.ConfigurationManager;
 
-[assembly: InternalsVisibleTo("TariffCompare.Console")]
 namespace TariffCompare.Standard
 {
     internal static class Config

@@ -33,7 +33,7 @@ namespace TariffCompare.Standard
         }
 
         public static float EvaluateUsage(
-            IDatasource ds, string tariffName, Constants.FuelType fuelType, int targetMonthlySpend, bool targetIncludesStandingCharge = true
+            IDatasource ds, string tariffName, CONSTANTS.FUELTYPE fueltype, int targetMonthlySpend, bool targetIncludesStandingCharge = true
             )
         {
             // assume all tariffs have unique names
@@ -44,10 +44,10 @@ namespace TariffCompare.Standard
             // assuming the targetMonthlySpend includes a standing charge - but this is easily configurable in the app.config as it is not in the spec
             float costToCalculate = targetIncludesStandingCharge ? Helpers.DeductStandingCharge(tariff.standingCharge, costExcludingVAT) : costExcludingVAT;
 
-            float rate = Helpers.SelectCorrectRate(fuelType, tariff.rates);
+            float rate = Helpers.SelectCorrectRate(fueltype, tariff.rates);
 
             float monthlyConsumption = Helpers.CalculateUsageFromCost(rate, costToCalculate);
-            float annualConsumption = Helpers.ConvertMonthlyToAnnual(monthlyConsumption); // best to just do this once
+            float annualConsumption = Helpers.ConvertMonthlyToAnnual(monthlyConsumption); // best to just do this once rather than on individual parts
 
             return annualConsumption;
         }

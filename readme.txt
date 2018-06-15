@@ -28,4 +28,4 @@ Notes:
 1) When running in "usage" mode I assumed that the TARGET_MONTHLY_SPEND includes a standing charge, as this is not otherwise defined. 
    This is configurable in 'TariffCompare.Console.dll.config' by uncommenting the setting 'targetMonthlySpend_includesStandingCharge' 
    and setting it to false.
-2) This has been a fun project. I've learned a lot, including how to run dotnet on Linux. Thanks.
+2) This has been a fun project. I've learned a lot, including how to run .NET on Linux. Thanks.

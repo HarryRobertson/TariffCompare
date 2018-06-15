@@ -6,9 +6,15 @@ namespace TariffCompare
 {
     class Program
     {
+        private const string DATASOURCE = "Datasource";
+        private const string TARGETMONTHLYCHARGE_INCLUDESSTANDINGCHARGE = "targetMonthlySpend_includesStandingCharge";
+
+        private const string COST = "cost";
+        private const string USAGE = "usage";
+
         static void Main(params string[] args)
         {
-            string path = Config.Get("Datasource");
+            string path = Config.Get(DATASOURCE);
             Datasource ds = new Datasource(path);
 
             StringBuilder sb = new StringBuilder();
@@ -16,14 +22,14 @@ namespace TariffCompare
                 sb = GetHelp();
             else switch (args[0].ToLower())
             {
-                case "cost":
+                case COST:
                     if (args.Length != 3 // guard against incorrect arguments
                             || !int.TryParse(args[1], out int powerUsage)
                             || !int.TryParse(args[2], out int gasUsage))
                         sb = GetHelp(true, false);
                     else
                     {
-                        var costs = Functions.EvaluateCost(ds, powerUsage, gasUsage);
+                        var costs = Functions.EvaluateCost(ds, powerUsage, gasUsage); // <-- PRIMARY FUNCTION
                         foreach (var cost in costs)
                         {
                             sb.AppendLine($"{cost.tariffName} {cost.cost:0.00}");
@@ -31,16 +37,16 @@ namespace TariffCompare
                     }
                     break;
 
-                case "usage":
+                case USAGE:
                     if (args.Length != 4 // guard against incorrect arguments
-                            || !Enum.TryParse(args[2], true, out Constants.FuelType fuelType)
+                            || !Enum.TryParse(args[2], true, out CONSTANTS.FUELTYPE fuelType)
                             || !int.TryParse(args[3], out int targetMonthlySpend))
                         sb = GetHelp(false, true);
                     else
                     {
                         float usage;
-                        if (bool.TryParse(Config.Get("targetMonthlySpend_includesStandingCharge"), out bool includesStandingCharge))
-                            usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend, includesStandingCharge);
+                        if (bool.TryParse(Config.Get(TARGETMONTHLYCHARGE_INCLUDESSTANDINGCHARGE), out bool includesStandingCharge))
+                            usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend, includesStandingCharge); // <-- PRIMARY FUNCTION
                         else // as it stands targetMonthlySpend_includesStandingCharge is not specified in the config, so the default mode will be used
                             usage = Functions.EvaluateUsage(ds, args[1], fuelType, targetMonthlySpend);
                         sb.AppendLine($"{usage:0.00}");
